@@ -7,29 +7,19 @@ var distFolderPath = "dist",
     Path = require('path'),
     production = NODE_ENV === "production",
     plugins = [
-        //clean dist folder before build
-        new CleanWebpackPlugin([distFolderPath], {
-            //root: '/full/project/path',
-            //verbose: true,
-            //dry: false
-        }),
+        //Exclude vendors from dist
+        new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js')
     ],
-    entry = {};
+    entry = {},
+    vendors = Object.keys(packageJson.dependencies),
+    nodeModulesDir = Path.resolve(__dirname, '../node_modules');
+
+console.log(Path.resolve(__dirname));
 
 // plugins included only in production environment
 if (production) {
 
     plugins = plugins.concat([
-        // vendor in a separate bundle, hash for long term cache
-/*        new webpack.optimize.CommonsChunkPlugin({
-            name: "vendor",
-            filename: "vendor.[hash].js",
-            chucks: ["vendor"]
-        }),*/
-        //Merge small chunks that are lower than this min size (in chars)
-        new webpack.optimize.MinChunkSizePlugin({
-            minChunkSize: 51200, // ~50kb
-        }),
         // uglify
         new webpack.optimize.UglifyJsPlugin({
             compress: {
@@ -40,13 +30,10 @@ if (production) {
             },
         }),
     ]);
-
-    // add entry for vendor bundle
-    entry["vendor"] = ['jquery']; //add every vendor here
-
 }
 
 entry["app"] = [packageJson.main];
+entry["vendors"] = vendors; //add every vendor here
 
 module.exports = {
     debug: !production, //switch loader to debug mode
@@ -54,15 +41,12 @@ module.exports = {
     entry: entry,
     output: {
         path: Path.join(__dirname, distFolderPath),
-        //hash for long term cache
-        filename: production ? 'bundle.[hash].js' : "bundle.js",
-        //chunkFilename: 'chunk-[id].[hash].js'
+        filename: production ? packageJson.name + '.js' : packageJson.name + ".js", //add min
     },
     resolve: {
         root: Path.resolve(__dirname),
         alias: {
-            module : "bundle.[hash].js",
-            __config :  Path.join(__dirname, "src/config"),
+            handlebars: 'handlebars/dist/handlebars.min.js'
         }
     },
     module: {
@@ -71,7 +55,7 @@ module.exports = {
             //jshint
             {
                 test: /\.js$/, // include .js files
-                exclude: /node_modules/, // exclude any and all files in the node_modules folder
+                exclude: [nodeModulesDir], // exclude any and all files in the node_modules folder
                 loader: "jshint-loader"
             }
         ],
