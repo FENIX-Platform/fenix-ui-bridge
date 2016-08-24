@@ -1,6 +1,6 @@
 /*global describe, it, require*/
 var expect = require("chai").expect;
-var Bridge = require("../src/js/bridge");
+var Bridge = require("../src/js/index");
 
 describe("Bridge", function () {
 
