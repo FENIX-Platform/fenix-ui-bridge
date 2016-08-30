@@ -1,6 +1,6 @@
 {
   "name": "fenix-ui-bridge",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.6",
   "description": "FENIX connector that implements the FENIX communication protocol v2.0",
   "main": "dist/fenix-ui-bridge.min.js",
   "directories": {
@@ -8,9 +8,9 @@
     "dist": "dist"
   },
   "scripts": {
-    "test" : "mocha test/specs.js -w",
-    "build:production": "NODE_ENV=production webpack",
-    "build": "NODE_ENV=develop webpack"
+    "test": "mocha test/specs.js -w",
+    "build": "NODE_ENV=production webpack",
+    "build:develop": "NODE_ENV=develop webpack"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/FENIX-Platform/fenix-ui-bridge#readme",
   "dependencies": {
-    "amplify": "0.0.11",
+    "amplify-store": "0.0.5",
     "jquery": "3.1.0",
     "loglevel": "1.4.1",
     "object-hash": "1.1.4",

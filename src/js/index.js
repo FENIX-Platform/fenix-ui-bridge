@@ -9,8 +9,8 @@ define([
     'q',
     'loglevel',
     'object-hash',
-    'amplify'
-], function (C, $, _, Q, log, Hash) {
+    'amplify-store'
+], function (C, $, _, Q, log, Hash, amplify) {
 
     'use strict';
 
@@ -397,7 +397,7 @@ define([
         var key = this.getCacheKey(obj);
 
         try {
-            amplify.store.sessionStorage(key, value)
+            amplify.sessionStorage(key, value)
         } catch (e) {
 
             this.cache_db[key] = value;
@@ -409,7 +409,7 @@ define([
     Bridge.prototype._getCacheItem = function (obj) {
 
         var key = this.getCacheKey(obj),
-            item = amplify.store.sessionStorage(key);
+            item = amplify.sessionStorage(key);
 
         return item ? item : this.cache_db[key];
 
