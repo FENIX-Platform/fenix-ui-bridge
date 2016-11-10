@@ -32,7 +32,7 @@ define([
 
     Bridge.prototype.find = function (obj) {
 
-        var key = $.extend(true, {
+        var key = _.extend({
                 type: "find",
                 environment: this.ENVIR
             }, obj),
@@ -58,7 +58,7 @@ define([
             dataType: obj.dataType || 'json'
         })).then(function (data) {
 
-            self._setCacheItem(key, data);
+            self._setCacheItem(key, data ? data : null);
 
             return Q.promise(function (resolve, reject, notify) {
                 return resolve(self._getCacheItem(key));
@@ -75,7 +75,7 @@ define([
 
     Bridge.prototype.getEnumeration = function (obj) {
 
-        var key = $.extend(true, {
+        var key = _.extend({
                 type: "enumeration",
                 environment: this.ENVIR
             }, obj),
@@ -97,7 +97,7 @@ define([
             dataType: obj.dataType || 'json'
         })).then(function (data) {
 
-            self._setCacheItem(key, data);
+            self._setCacheItem(key, data ? data : null);
 
             return Q.promise(function (resolve, reject, notify) {
                 return resolve(self._getCacheItem(key));
@@ -114,7 +114,7 @@ define([
 
     Bridge.prototype.getCodeList = function (obj) {
 
-        var key = $.extend(true, {
+        var key = _.extend({
                 type: "codelist",
                 environment: this.ENVIR
             }, obj),
@@ -139,7 +139,7 @@ define([
             data: JSON.stringify(body)
         })).then(function (data) {
 
-            self._setCacheItem(key, data);
+            self._setCacheItem(key, data ? data : null);
 
             return Q.promise(function (resolve, reject, notify) {
                 return resolve(self._getCacheItem(key));
@@ -157,7 +157,7 @@ define([
 
     Bridge.prototype.getResource = function (obj) {
 
-        var key = $.extend(true, {
+        var key = _.extend({
                 type: "resource",
                 environment: this.ENVIR
             }, obj),
@@ -181,7 +181,7 @@ define([
             data: JSON.stringify(obj.body)
         })).then(function (data) {
 
-            self._setCacheItem(key, data);
+            self._setCacheItem(key, data ? data : null);
 
             return Q.promise(function (resolve, reject, notify) {
                 return resolve(self._getCacheItem(key));
@@ -198,7 +198,7 @@ define([
 
     Bridge.prototype.getProcessedResource = function (obj) {
 
-        var key = $.extend(true, {
+        var key = _.extend({
                 type: "process",
                 environment: this.ENVIR
             }, obj),
@@ -224,7 +224,7 @@ define([
             data: JSON.stringify(obj.body)
         })).then(function (data) {
 
-            self._setCacheItem(key, data);
+            self._setCacheItem(key, data ? data : null);
 
             return Q.promise(function (resolve, reject, notify) {
                 return resolve(self._getCacheItem(key));
@@ -241,7 +241,7 @@ define([
 
     Bridge.prototype.getMetadata = function (obj) {
 
-        var key = $.extend(true, {
+        var key = _.extend({
                 type: "metadata",
                 environment: this.ENVIR
             }, obj),
@@ -263,7 +263,7 @@ define([
             dataType: obj.dataType || 'json'
         })).then(function (data) {
 
-            self._setCacheItem(key, data);
+            self._setCacheItem(key, data ? data : null);
 
             return Q.promise(function (resolve, reject, notify) {
                 return resolve(self._getCacheItem(key));
@@ -307,7 +307,7 @@ define([
     Bridge.prototype.getMDSD = function (opts) {
 
         var obj = opts || {},
-            key = $.extend(true, {
+            key = _.extend({
                 type: "mdsd",
                 environment: this.ENVIR
             }, obj),
@@ -330,7 +330,7 @@ define([
             dataType: obj.dataType || 'json'
         })).then(function (data) {
 
-            self._setCacheItem(key, data);
+            self._setCacheItem(key, data ? data : null);
 
             return Q.promise(function (resolve, reject, notify) {
                 return resolve(self._getCacheItem(key));
