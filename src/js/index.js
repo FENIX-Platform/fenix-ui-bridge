@@ -73,6 +73,106 @@ define([
         });
     };
 
+    // )))
+
+    Bridge.prototype.deleteResource = function(obj) {
+
+        var serviceProvider = obj.SERVICE_PROVIDER || this.SERVICE_PROVIDER,
+            deleteService = obj.resourcesService || C.resourcesService;
+
+        return Q($.ajax({
+            url: serviceProvider + deleteService + this._parseUidAndVersion(obj, true),
+            type: obj.type || "DELETE",
+            // Datatype changed to text as the server returns an empty response,
+            // setting it to json would trigger an error on success
+            dataType: 'text'
+
+        })).then(function (data) {
+            return Q.promise(function (resolve, reject, notify) {
+                return resolve(data);
+            });
+        }, function (error) {
+            return Q.promise(function (resolve, reject, notify) {
+                return reject(error);
+            });
+
+        });
+    };
+
+    Bridge.prototype._protoSaveUpdate = function(service, type, obj) {
+        var serviceProvider = obj.SERVICE_PROVIDER || this.SERVICE_PROVIDER,
+            saveService = service,
+            body = obj.body,
+            type = obj.type || type;
+
+        return Q($.ajax({
+            contentType: obj.contentType || 'application/json',
+            url: serviceProvider + saveService,
+            type: type,
+            data: JSON.stringify(body),
+            dataType: obj.dataType || 'json'
+        })).then(function (data) {
+            return Q.promise(function (resolve, reject, notify) {
+                return resolve(data);
+            });
+        }, function (error) {
+            return Q.promise(function (resolve, reject, notify) {
+                return reject(error);
+            });
+
+        });
+
+    };
+
+    Bridge.prototype.saveMetadata = function (obj) {
+        var saveService = obj.metadataService || C.metadataService;
+        return this._protoSaveUpdate(saveService, "POST", obj);
+    };
+
+    Bridge.prototype.saveDSD = function (obj) {
+        var saveService = obj.dsdService || C.dsdService;
+        return this._protoSaveUpdate(saveService, "POST", obj);
+    };
+
+    Bridge.prototype.saveData = function (obj) {
+        var saveService = obj.resourcesService || C.resourcesService;
+        return this._protoSaveUpdate(saveService, "POST", obj);
+    };
+
+
+    Bridge.prototype.updateDSD = function (obj) {
+        var saveService = obj.dsdService || C.dsdService;
+        return this._protoSaveUpdate(saveService, "PUT", obj);
+    };
+
+    Bridge.prototype.updateData = function (obj) {
+        var saveService = obj.resourcesService || C.resourcesService;
+        if (obj.body.data) {
+            obj.body.data = {
+                'rid' : obj.dsdRid
+            }
+        }
+        return this._protoSaveUpdate(saveService, "PUT", obj);
+    };
+
+    Bridge.prototype.deleteData = function (obj) {
+        var saveService = obj.resourcesService || C.resourcesService;
+        obj.body.data = [];
+        return this._protoSaveUpdate(saveService, "PUT", obj);
+    };
+
+    Bridge.prototype.updateMetadata = function (obj) {
+        var saveService = obj.metadataService || C.metadataService;
+        if (obj.dsdRid) {
+            obj.body.dsd = {
+                'rid' : obj.dsdRid
+            }
+        }
+        return this._protoSaveUpdate(saveService, "PUT", obj);
+    };
+
+    // 0)))
+
     Bridge.prototype.getEnumeration = function (obj) {
 
         var key = _.extend({
@@ -154,6 +254,7 @@ define([
         });
 
     };
+
 
     Bridge.prototype.getResource = function (obj) {
 

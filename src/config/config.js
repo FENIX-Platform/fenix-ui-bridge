@@ -9,6 +9,7 @@ define(function () {
     var serverDevelop = '//fenix.fao.org/',
         serverProduction = '//fenixservices.fao.org/';
 
+
     return {
 
         //Bridge
@@ -20,6 +21,7 @@ define(function () {
         enumerationService: 'msd/choices/',
         processesService : "processes/",
         metadataService : "msd/resources/metadata/",
+        dsdService : "msd/resources/dsd",
         resourcesService : "msd/resources/",
         mdsdService : "mdsd/",
 

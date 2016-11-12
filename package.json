@@ -1,6 +1,6 @@
 {
   "name": "fenix-ui-bridge",
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0-beta.8",
   "description": "FENIX connector that implements the FENIX communication protocol v2.0",
   "main": "dist/fenix-ui-bridge.min.js",
   "directories": {
@@ -10,6 +10,7 @@
   "scripts": {
     "test": "mocha test/specs.js -w -r mock-local-storage",
     "dev": "NODE_ENV=develop webpack-dev-server --display-error-details --progress --color --content-base dev  --inline --hot",
+    "w-dev": "SET NODE_ENV=develop&&webpack-dev-server --display-error-details --progress --color --content-base dev  --inline --hot",
     "build": "NODE_ENV=production webpack",
     "build:develop": "NODE_ENV=develop webpack",
     "w-build": "SET NODE_ENV=production&&webpack",
