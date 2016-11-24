@@ -73,8 +73,6 @@ define([
         });
     };
 
-    // )))
-
     Bridge.prototype.deleteResource = function(obj) {
 
         var serviceProvider = obj.SERVICE_PROVIDER || this.SERVICE_PROVIDER,
@@ -139,7 +137,6 @@ define([
         return this._protoSaveUpdate(saveService, "POST", obj);
     };
 
-
     Bridge.prototype.updateDSD = function (obj) {
         var saveService = obj.dsdService || C.dsdService;
         return this._protoSaveUpdate(saveService, "PUT", obj);
@@ -171,7 +168,45 @@ define([
         return this._protoSaveUpdate(saveService, "PUT", obj);
     };
 
-    // 0)))
+    Bridge.prototype.getColumnDistinctValues = function (obj) {
+
+        var key = _.extend({
+                type: "distinct",
+                environment: this.ENVIR
+            }, obj),
+            cached = this._getCacheItem(key),
+            self = this;
+
+        if (this.USE_CACHE && cached) {
+            return Q.promise(function (resolve) {
+                return resolve(cached);
+            });
+        }
+
+        var serviceProvider = obj.serviceProvider || this.SERVICE_PROVIDER,
+            columnDistinctValues = obj.columnDistinctValues  || C.columnDistinctValues,
+            url = serviceProvider + columnDistinctValues + this._parseUidAndVersion(obj, false) +"/"+ obj.columnId;
+
+        return Q($.ajax({
+            url: url,
+            type: obj.type || "GET",
+            dataType: obj.dataType || 'json'
+        })).then(function (data) {
+
+            self._setCacheItem(key, data ? data : null);
+
+            return Q.promise(function (resolve, reject, notify) {
+                return resolve(self._getCacheItem(key));
+            });
+
+        }, function (error) {
+
+            return Q.promise(function (resolve, reject, notify) {
+                return reject(error);
+            });
+
+        });
+    };
 
     Bridge.prototype.getEnumeration = function (obj) {
 
@@ -254,7 +289,6 @@ define([
         });
 
     };
-
 
     Bridge.prototype.getResource = function (obj) {
 

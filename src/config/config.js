@@ -24,6 +24,7 @@ define(function () {
         dsdService : "msd/resources/dsd",
         resourcesService : "msd/resources/",
         mdsdService : "mdsd/",
+        columnDistinctValues : "msd/codes/distinct/",
 
         cache : true
     }
