@@ -144,11 +144,6 @@ define([
 
     Bridge.prototype.updateData = function (obj) {
         var saveService = obj.resourcesService || C.resourcesService;
-        if (obj.body.data) {
-            obj.body.data = {
-                'rid' : obj.dsdRid
-            }
-        }
         return this._protoSaveUpdate(saveService, "PUT", obj);
     };
 
