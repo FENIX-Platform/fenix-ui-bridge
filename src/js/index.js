@@ -77,8 +77,6 @@ define([
         var serviceProvider = obj.SERVICE_PROVIDER || this.SERVICE_PROVIDER,
             deleteService = obj.metadataService || C.metadataService;
 
-        console.log(serviceProvider + deleteService + this._parseUidAndVersion(obj, true))
-
         return Q($.ajax({
             url: serviceProvider + deleteService + this._parseUidAndVersion(obj, true),
             type: obj.type || "DELETE",
