@@ -131,6 +131,16 @@ define([
             });
         });
 
+        $(s.DELMETA).on("click", function () {
+            alert('updating delete METADATA D3S_90620053899062996745207184835112134526 if exist')
+            self.bridge.deleteMetadata({
+                uid: "D3S_90620053899062996745207184835112134526"
+            }).then(function (data) {
+                console.log(data)
+            });
+        });
+
+
         $(s.DELDATA).on("click", function () {
             alert('updating deleteData D3S_68675446089355920227307586329321703254 if exist')
             self.bridge.deleteData({

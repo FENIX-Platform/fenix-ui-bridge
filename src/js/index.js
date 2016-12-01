@@ -73,6 +73,31 @@ define([
         });
     };
 
+    Bridge.prototype.deleteMetadata = function(obj) {
+        var serviceProvider = obj.SERVICE_PROVIDER || this.SERVICE_PROVIDER,
+            deleteService = obj.metadataService || C.metadataService;
+
+        console.log(serviceProvider + deleteService + this._parseUidAndVersion(obj, true))
+
+        return Q($.ajax({
+            url: serviceProvider + deleteService + this._parseUidAndVersion(obj, true),
+            type: obj.type || "DELETE",
+            // Datatype changed to text as the server returns an empty response,
+            // setting it to json would trigger an error on success
+            dataType: 'text'
+
+        })).then(function (data) {
+            return Q.promise(function (resolve, reject, notify) {
+                return resolve(data);
+            });
+        }, function (error) {
+            return Q.promise(function (resolve, reject, notify) {
+                return reject(error);
+            });
+
+        });
+    };
+
     Bridge.prototype.deleteResource = function(obj) {
 
         var serviceProvider = obj.SERVICE_PROVIDER || this.SERVICE_PROVIDER,
