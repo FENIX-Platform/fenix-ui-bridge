@@ -57,7 +57,7 @@ define([
             self.bridge.find({
                 body: {
                     "meContent.resourceRepresentationType": {"enumeration": ["dataset"]},
-                    "dsd.contextSystem": {"enumeration": ["cstat_ago"]}
+                    "dsd.contextSystem": {"enumeration": ["fenix_develop"]}
                 },
                 params: {"full": true, "order": "meMaintenance.seUpdate.updateDate:desc"}
             }).then(function (data) {
