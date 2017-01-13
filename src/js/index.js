@@ -572,8 +572,6 @@ define([
 
         var key = Hash(obj);
 
-        console.log(key);
-
         return key;
 
     };

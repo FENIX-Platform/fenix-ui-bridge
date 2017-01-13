@@ -195,7 +195,9 @@ define([
             self.bridge.getColumnDistinctValues({
                 uid: 'Uneca_PopulationNew',
                 //version: "1.0",
-                columnId: "DomainCode"
+                //columnId: "Fake", // not existing column: return error code 400
+                //columnId: "Year", //column data type: year, return array of numbers
+                columnId: "DomainCode", //column data type: codes, return array of code object
             }).then(function (data) {
                 console.log(data)
             });
