@@ -7,7 +7,8 @@ define(function () {
     'use strict';
 
     var serverDevelop = '//fenix.fao.org/',
-        serverProduction = '//fenixservices.fao.org/';
+        serverProduction = '//fenixservices.fao.org/',
+        serverDemo = '//fenix.fao.org/';
 
 
     return {
@@ -15,6 +16,7 @@ define(function () {
         //Bridge
         serviceProviderProduction : serverProduction + "d3s/",
         serviceProviderDevelop : serverDevelop + "d3s_dev/",
+        serviceProviderDemo : serverDemo + "d3s/",
         exportService :"/fenix/export",
         findService : "msd/resources/find",
         codelistService: 'msd/codes/filter',
