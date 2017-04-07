@@ -457,6 +457,57 @@ define([
 
     };
 
+
+    Bridge.prototype.exportFlow = function (payload, obj) {
+
+        var serviceProvider = (obj && obj.serviceProvider) || this.SERVICE_PROVIDER;
+        var url = serviceProvider + (C.exportFlow);
+
+        return Q($.ajax({
+            url: url,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(payload)
+
+        })).then(function (data) {
+            var object = {'data': data, 'url': url};
+            return Q.promise(function (resolve, reject, notify) {
+                return resolve(object);
+            });
+
+        }, function (error) {
+            return Q.promise(function (resolve, reject, notify) {
+                return resolve(error);
+            });
+        });
+
+    };
+
+    Bridge.prototype.exportStreaming = function (payload, obj) {
+
+        var serviceProvider = (obj && obj.serviceProvider) || this.SERVICE_PROVIDER;
+        var url = serviceProvider + (C.exportStreaming);
+
+        return Q($.ajax({
+            url: url,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(payload)
+
+        })).then(function (data) {
+            var object = {'data': data, 'url': url};
+            return Q.promise(function (resolve, reject, notify) {
+                return resolve(object);
+            });
+
+        }, function (error) {
+            return Q.promise(function (resolve, reject, notify) {
+                return resolve(error);
+            });
+        });
+
+    };
+
     Bridge.prototype.getMDSD = function (opts) {
 
         var obj = opts || {},

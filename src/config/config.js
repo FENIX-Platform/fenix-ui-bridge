@@ -18,6 +18,8 @@ define(function () {
         serviceProviderDevelop : serverDevelop + "d3s_dev/",
         serviceProviderDemo : serverDemo + "d3s/",
         exportService :"/fenix/export",
+        exportFlow :"/export/flow",
+        exportStreaming :"/export/",
         findService : "msd/resources/find",
         codelistService: 'msd/codes/filter',
         enumerationService: 'msd/choices/',
