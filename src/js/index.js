@@ -467,7 +467,8 @@ define([
             url: url,
             type: "POST",
             contentType: "application/json",
-            data: JSON.stringify(payload)
+            data: JSON.stringify(payload),
+            dataType:"text"
 
         })).then(function (data) {
             var object = {'data': data, 'url': url};
@@ -492,7 +493,9 @@ define([
             url: url,
             type: "POST",
             contentType: "application/json",
-            data: JSON.stringify(payload)
+            data: JSON.stringify(payload),
+            dataType:"text"
+
 
         })).then(function (data) {
             var object = {'data': data, 'url': url};
