@@ -435,7 +435,14 @@ define([
     Bridge.prototype.export = function (payload, obj) {
 
         var serviceProvider = (obj && obj.serviceProvider) || this.SERVICE_PROVIDER;
-        var url = serviceProvider + (C.exportService);
+        var url = '';
+        if((obj.params!=null)&&(typeof obj.params!='undefined'))
+        {
+            url = serviceProvider + (C.exportService)+  this._parseQueryParams(obj.params) ;
+        }
+        else{
+            url = serviceProvider + (C.exportService);
+        }
 
         return Q($.ajax({
             url: url,
@@ -460,8 +467,8 @@ define([
 
     Bridge.prototype.exportFlow = function (payload, obj) {
 
-        var serviceProvider = (obj && obj.serviceProvider) || this.SERVICE_PROVIDER;
-        var url = serviceProvider + (C.exportFlow);
+        var serviceProvider = (obj && obj.serviceProvider) || this.SERVICE_PROVIDER,
+         url = serviceProvider + (C.exportFlow) + this._parseQueryParams(obj.params) ;
 
         return Q($.ajax({
             url: url,
@@ -486,8 +493,8 @@ define([
 
     Bridge.prototype.exportStreaming = function (payload, obj) {
 
-        var serviceProvider = (obj && obj.serviceProvider) || this.SERVICE_PROVIDER;
-        var url = serviceProvider + (C.exportStreaming);
+        var serviceProvider = (obj && obj.serviceProvider) || this.SERVICE_PROVIDER,
+            url = serviceProvider + (C.exportStreaming) + this._parseQueryParams(obj.params) ;
 
         return Q($.ajax({
             url: url,
