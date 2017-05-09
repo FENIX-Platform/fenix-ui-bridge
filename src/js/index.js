@@ -436,13 +436,10 @@ define([
 
         var serviceProvider = (obj && obj.serviceProvider) || this.SERVICE_PROVIDER;
         var url = '';
-        if((obj.params!=null)&&(typeof obj.params!='undefined'))
-        {
-            url = serviceProvider + (C.exportService)+  this._parseQueryParams(obj.params) ;
-        }
+        if((obj!=null)&&(typeof obj!='undefined')&&(obj.params!=null)&&(typeof obj.params!='undefined')) {
+            url = serviceProvider + (C.exportService)+  this._parseQueryParams(obj.params);}
         else{
-            url = serviceProvider + (C.exportService);
-        }
+            url = serviceProvider + (C.exportService);}
 
         return Q($.ajax({
             url: url,
