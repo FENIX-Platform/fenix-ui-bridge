@@ -20,7 +20,7 @@ define([
             DISTINCT: "[data-role='distinct']"
         },
 
-        environment = 'production';
+        environment = 'wiews';
 
     function Dev() {
 

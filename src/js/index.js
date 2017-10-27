@@ -22,7 +22,7 @@ define([
         this.USE_CACHE = obj.cache;
         this.SERVICE_PROVIDER = C['serviceProvider' + capitalizeFirstLetter(this.ENVIR.toLowerCase())];
         if (!this.SERVICE_PROVIDER) {
-            alert(this.environment + " is not a valid FENIX environment: [develop, production, demo]");
+            alert(this.environment + " is not a valid FENIX environment: [develop, production, demo, wiews]");
         }
 
         function capitalizeFirstLetter(string) {
