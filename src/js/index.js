@@ -326,8 +326,8 @@ define([
                 environment: this.ENVIR
             }, obj),
             cached = this._getCacheItem(key),
-            self = this
-        body = obj.body;
+            self = this,
+            body = obj.body;
 
         if (this.extra) _.extend(body, this.extra);
 
