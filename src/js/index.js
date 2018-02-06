@@ -16,13 +16,18 @@ define([
 
     function Bridge(o) {
         var obj = o || {};
+
         this.cache_db = {};
         this.environment = obj.environment || 'production';
         this.ENVIR = this.environment.toUpperCase();
         this.USE_CACHE = obj.cache;
         this.SERVICE_PROVIDER = C['serviceProvider' + capitalizeFirstLetter(this.ENVIR.toLowerCase())];
+        this.extra = obj.extra;
+
+        log.info("Extra is " + this.extra);
+
         if (!this.SERVICE_PROVIDER) {
-            alert(this.environment + " is not a valid FENIX environment: [develop, production, demo, wiews]");
+            alert(this.environment + " is not a valid FENIX environment: [develop, production, demo, wiews, gift]");
         }
 
         function capitalizeFirstLetter(string) {
@@ -49,6 +54,8 @@ define([
         var serviceProvider = obj.SERVICE_PROVIDER || this.SERVICE_PROVIDER,
             filterService = obj.findService || C.findService,
             body = obj.body;
+
+        if (this.extra) _.extend(body, this.extra);
 
         return Q($.ajax({
             url: serviceProvider + filterService + this._parseQueryParams(obj.params),
@@ -125,6 +132,8 @@ define([
             saveService = service,
             body = obj.body,
             type = obj.type || type;
+
+        if (this.extra) _.extend(body, this.extra);
 
         return Q($.ajax({
             contentType: obj.contentType || 'application/json',
@@ -284,6 +293,8 @@ define([
             codeListService = obj.codeListService || C.codelistService,
             body = obj.body;
 
+        if (this.extra) _.extend(body, this.extra);
+
         return Q($.ajax({
             url: serviceProvider + codeListService + this._parseQueryParams(obj.params),
             type: obj.type || "POST",
@@ -315,7 +326,10 @@ define([
                 environment: this.ENVIR
             }, obj),
             cached = this._getCacheItem(key),
-            self = this;
+            self = this
+        body = obj.body;
+
+        if (this.extra) _.extend(body, this.extra);
 
         if (this.USE_CACHE && cached) {
             return Q.promise(function (resolve) {
@@ -331,7 +345,7 @@ define([
             url: url,
             type: obj.type || "GET",
             contentType: obj.contentType || "application/json",
-            data: JSON.stringify(obj.body)
+            data: JSON.stringify(body)
         })).then(function (data) {
 
             self._setCacheItem(key, data ? data : null);
@@ -356,13 +370,16 @@ define([
                 environment: this.ENVIR
             }, obj),
             cached = this._getCacheItem(key),
-            self = this;
+            self = this,
+            body = obj.body;
 
         if (this.USE_CACHE && cached) {
             return Q.promise(function (resolve) {
                 return resolve(cached);
             });
         }
+
+        if (this.extra) _.extend(body, this.extra);
 
         var serviceProvider = obj.serviceProvider || this.SERVICE_PROVIDER,
             processesService = obj.processesService || C.processesService,
@@ -374,7 +391,7 @@ define([
             type: obj.type || "POST",
             dataType: obj.dataType || 'json',
             contentType: obj.contentType || "application/json",
-            data: JSON.stringify(obj.body)
+            data: JSON.stringify(body)
         })).then(function (data) {
 
             self._setCacheItem(key, data ? data : null);
@@ -465,7 +482,7 @@ define([
     Bridge.prototype.exportFlow = function (payload, obj) {
 
         var serviceProvider = (obj && obj.serviceProvider) || this.SERVICE_PROVIDER,
-         url = serviceProvider + (C.exportFlow) + this._parseQueryParams(obj.params) ;
+            url = serviceProvider + (C.exportFlow) + this._parseQueryParams(obj.params) ;
 
         return Q($.ajax({
             url: url,

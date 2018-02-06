@@ -1,6 +1,6 @@
 {
   "name": "fenix-ui-bridge",
-  "version": "1.0.0-beta.20",
+  "version": "1.0.0-beta.21",
   "description": "FENIX connector that implements the FENIX communication protocol v2.0",
   "main": "dist/fenix-ui-bridge.min.js",
   "directories": {
@@ -38,8 +38,8 @@
   "devDependencies": {
     "bootstrap": "^3.3.7",
     "chai": "3.5.0",
-    "clean-webpack-plugin": "^0.1.17",
-    "cross-env": "^5.1.0",
+    "clean-webpack-plugin": "^0.1.18",
+    "cross-env": "^5.1.3",
     "css-loader": "^0.25.0",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.30.1",
