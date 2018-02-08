@@ -9,7 +9,7 @@ define(function () {
     var serverDevelop = '//fenix.fao.org/',
         serverProduction = '//fenixservices.fao.org/',
         serverDemo = '//fenix.fao.org/',
-        serverGIFT = '//fenixapps2.fao.org/gift-test/v1/',
+        serverGIFT = '//fenixservices.fao.org/dev/gift/',
         serverWiewsQA = '//www.fao.org/fenix/wiews/api/',
         serverWiewsProduction = '//www-test.fao.org/fenix/wiews/api/';
 
