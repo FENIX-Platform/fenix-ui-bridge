@@ -1,6 +1,6 @@
 {
   "name": "fenix-ui-bridge",
-  "version": "1.0.0-beta.23",
+  "version": "1.0.0-beta.24",
   "description": "FENIX connector that implements the FENIX communication protocol v2.0",
   "main": "dist/fenix-ui-bridge.min.js",
   "directories": {
