@@ -24,7 +24,7 @@ define([
         this.SERVICE_PROVIDER = C['serviceProvider' + capitalizeFirstLetter(this.ENVIR.toLowerCase())];
         this.extra = obj.extra;
 
-        log.info("Extra is " , this.extra);
+        log.info("Extra is " + this.extra);
 
         if (!this.SERVICE_PROVIDER) {
             alert(this.environment + " is not a valid FENIX environment: [develop, production, demo, wiews, gift]");
@@ -55,7 +55,7 @@ define([
             filterService = obj.findService || C.findService,
             body = obj.body;
 
-        if (this.extra) body = $.extend(true, {}, { filter : body }, this.extra);
+        if (this.extra) _.extend(body, this.extra);
 
         return Q($.ajax({
             url: serviceProvider + filterService + this._parseQueryParams(obj.params),
