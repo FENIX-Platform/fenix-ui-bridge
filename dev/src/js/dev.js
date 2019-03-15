@@ -30,7 +30,8 @@ define([
 
         this.bridge = new Bridge({
             cache: false,
-            environment: environment
+            environment: environment,
+            //serviceProvider: "http://mav.dev/"
         });
 
         //trace, debug, info, warn, error, silent

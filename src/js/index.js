@@ -21,7 +21,7 @@ define([
         this.environment = obj.environment || 'production';
         this.ENVIR = this.environment.toUpperCase();
         this.USE_CACHE = obj.cache;
-        this.SERVICE_PROVIDER = C['serviceProvider' + capitalizeFirstLetter(this.ENVIR.toLowerCase())];
+        this.SERVICE_PROVIDER = obj.serviceProvider || C['serviceProvider' + capitalizeFirstLetter(this.ENVIR.toLowerCase())];
         this.extra = obj.extra;
 
         log.info("Extra is " + this.extra);
